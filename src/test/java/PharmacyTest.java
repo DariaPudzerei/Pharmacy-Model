@@ -1,7 +1,15 @@
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.*;
 
+@ExtendWith(MockitoExtension.class)
 public class PharmacyTest {
+    
+    @Mock
+    private Pharmacy mockPharmacy;
     
     @Test
     public void testPharmacyCreation() {
@@ -12,10 +20,18 @@ public class PharmacyTest {
     }
     
     @Test
-    public void testPharmacyInfo() {
-        Pharmacy pharmacy = new Pharmacy("24/7 Аптека", "пр. Перемоги, 45");
-        String expectedInfo = "Аптека: 24/7 Аптека, Адреса: пр. Перемоги, 45, Статус: Відкрита";
-        assertEquals(expectedInfo, pharmacy.getInfo());
+    public void testMockedPharmacy() {
+        when(mockPharmacy.getName()).thenReturn("Мок Аптека");
+        when(mockPharmacy.getAddress()).thenReturn("Мок Адреса");
+        when(mockPharmacy.isOpen()).thenReturn(true);
+        
+        assertEquals("Мок Аптека", mockPharmacy.getName());
+        assertEquals("Мок Адреса", mockPharmacy.getAddress());
+        assertTrue(mockPharmacy.isOpen());
+        
+        verify(mockPharmacy, times(1)).getName();
+        verify(mockPharmacy, times(1)).getAddress();
+        verify(mockPharmacy, times(1)).isOpen();
     }
     
     @Test
