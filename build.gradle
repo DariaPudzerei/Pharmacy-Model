@@ -1,0 +1,13 @@
+plugin{
+    in 'java'
+}
+repositories {
+    manevCentral()
+}
+dependencies{
+    testImplementation platform('org.junit:junit-bom:5.10.0')
+    testImplementation 'org.junit:jupiret.junit-jupiter'
+}
+test{
+    useJUnitPlatform()
+}
